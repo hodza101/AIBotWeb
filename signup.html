@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LearnBuddy AI | Sign Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg-1:#07111c;
+  --bg-2:#0c1c2d;
+  --panel:rgba(8,20,33,0.84);
+  --line:rgba(150,205,255,0.16);
+  --line-strong:rgba(106,227,255,0.28);
+  --text:#ecf7ff;
+  --muted:#90aabd;
+  --muted-strong:#b5d6ea;
+  --accent:#6ae3ff;
+  --accent-2:#8ff2b7;
+  --accent-3:#ffd36e;
+  --shadow:0 34px 90px rgba(0,0,0,0.42);
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:18px;
+  --max-width:1180px;
+}
+
+*{ box-sizing:border-box; }
+
+html, body{
+  min-height:100%;
+  margin:0;
+}
+
+body{
+  font-family:"Manrope",system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 18% 16%, rgba(106,227,255,0.18), transparent 28%),
+    radial-gradient(circle at 82% 12%, rgba(143,242,183,0.14), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(255,211,110,0.12), transparent 32%),
+    linear-gradient(140deg, var(--bg-1) 0%, var(--bg-2) 45%, #08121f 100%);
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.02)),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:auto, 38px 38px, 38px 38px;
+  opacity:0.34;
+  pointer-events:none;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:28px;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:34px;
+  opacity:0.4;
+  pointer-events:none;
+}
+
+a, button, input{
+  font:inherit;
+}
+
+.page{
+  min-height:100vh;
+  padding:20px;
+  display:grid;
+  place-items:center;
+}
+
+.shell{
+  width:min(100%, var(--max-width));
+  display:grid;
+  grid-template-columns:minmax(320px, 480px) minmax(320px, 520px);
+  gap:22px;
+}
+
+.panel{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:var(--radius-xl);
+  background:linear-gradient(180deg, rgba(10,25,40,0.92), rgba(6,13,22,0.92));
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+}
+
+.panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,0.08), transparent 22%, transparent);
+  pointer-events:none;
+}
+
+.info-panel{
+  padding:30px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.logo-row{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.logo{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:1.08rem;
+  font-weight:700;
+  color:#052335;
+  background:linear-gradient(135deg, #6ae3ff, #7fb9ff 55%, #8ff2b7);
+  box-shadow:0 18px 36px rgba(106,227,255,0.28);
+}
+
+.eyebrow{
+  margin:0 0 4px;
+  font-size:0.76rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.brand-name{
+  margin:0;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:1.46rem;
+}
+
+.brand-copy{
+  margin:6px 0 0;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:0.95rem;
+}
+
+.hero-pill{
+  display:inline-flex;
+  width:max-content;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);
+  color:var(--muted-strong);
+  font-size:0.8rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+.info-panel h1{
+  margin:0;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:clamp(2.15rem, 4vw, 3.2rem);
+  line-height:0.98;
+  letter-spacing:-0.04em;
+  max-width:12ch;
+}
+
+.info-panel p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.feature-list{
+  display:grid;
+  gap:12px;
+}
+
+.feature-card{
+  padding:16px 18px;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+}
+
+.feature-card strong{
+  display:block;
+  margin-bottom:6px;
+  font-size:1rem;
+}
+
+.form-panel{
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+}
+
+.top-links{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:26px;
+}
+
+.back-link{
+  color:var(--muted-strong);
+  text-decoration:none;
+}
+
+.switch-link{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:700;
+}
+
+.form-card{
+  margin:auto 0;
+  padding:26px;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:24px;
+  background:linear-gradient(180deg, rgba(8,18,31,0.88), rgba(4,10,18,0.94));
+}
+
+.form-card h2{
+  margin:0 0 8px;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:2rem;
+}
+
+.form-card p{
+  margin:0 0 22px;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.form-grid{
+  display:grid;
+  gap:16px;
+}
+
+.field{
+  display:grid;
+  gap:8px;
+}
+
+.field label{
+  font-size:0.9rem;
+  color:var(--muted-strong);
+}
+
+.field input{
+  width:100%;
+  padding:15px 16px;
+  border:1px solid rgba(150,205,255,0.14);
+  border-radius:16px;
+  outline:none;
+  color:var(--text);
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+}
+
+.field input:focus{
+  border-color:var(--line-strong);
+  box-shadow:0 0 0 4px rgba(106,227,255,0.08);
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.meta-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.checkbox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.checkbox input{
+  width:18px;
+  height:18px;
+}
+
+.btn{
+  width:100%;
+  padding:15px 18px;
+  border:1px solid transparent;
+  border-radius:18px;
+  font-weight:800;
+  cursor:pointer;
+  color:#052234;
+  background:linear-gradient(135deg, #6ae3ff, #8ff2b7 55%, #ffd36e);
+  box-shadow:0 18px 32px rgba(106,227,255,0.18);
+  transition:transform 0.2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.foot-note{
+  margin-top:18px;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.foot-note a{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:700;
+}
+
+@media (max-width:980px){
+  .shell{
+    grid-template-columns:1fr;
+  }
+
+  .info-panel h1{
+    max-width:18ch;
+  }
+}
+
+@media (max-width:720px){
+  body::after{
+    display:none;
+  }
+
+  .page{
+    padding:12px;
+  }
+
+  .info-panel,
+  .form-panel{
+    padding:18px;
+  }
+
+  .form-card{
+    padding:20px;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <section class="panel info-panel">
+        <div class="logo-row">
+          <div class="logo">LB</div>
+          <div>
+            <p class="eyebrow">Language AI Studio</p>
+            <h2 class="brand-name">LearnBuddy AI</h2>
+            <p class="brand-copy">A cleaner auth flow that matches the main app design.</p>
+          </div>
+        </div>
+
+        <div class="hero-pill">Create your account</div>
+        <h1>Start with a fresh profile and save your learning progress.</h1>
+        <p>This signup page gives you a polished onboarding step before users enter the main tutor workspace.</p>
+
+        <div class="feature-list">
+          <article class="feature-card">
+            <strong>Simple onboarding</strong>
+            <span>Collect the core user data first, then connect it to your database logic.</span>
+          </article>
+          <article class="feature-card">
+            <strong>Scalable structure</strong>
+            <span>Easy to extend with username, avatar upload, verification, or social login later.</span>
+          </article>
+          <article class="feature-card">
+            <strong>Clean user flow</strong>
+            <span>The sign up page leads users naturally into your future login and dashboard flow.</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel form-panel">
+        <div class="top-links">
+          <a class="back-link" href="index_with_auth.html">← Back to home</a>
+          <a class="switch-link" href="login.html">Already have an account?</a>
+        </div>
+
+        <div class="form-card">
+          <h2>Sign up</h2>
+          <p>Create your LearnBuddy AI account in a few quick steps.</p>
+          <form class="form-grid" action="#" method="post">
+            
+<div class="row">
+  <div class="field">
+    <label for="firstName">First name</label>
+    <input id="firstName" name="firstName" type="text" placeholder="Edin" required />
+  </div>
+  <div class="field">
+    <label for="lastName">Last name</label>
+    <input id="lastName" name="lastName" type="text" placeholder="Hodzic" required />
+  </div>
+</div>
+<div class="field">
+  <label for="email">Email</label>
+  <input id="email" name="email" type="email" placeholder="name@example.com" required />
+</div>
+<div class="field">
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" placeholder="Create a password" required />
+</div>
+<div class="field">
+  <label for="confirmPassword">Confirm password</label>
+  <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Repeat your password" required />
+</div>
+<div class="meta-row">
+  <label class="checkbox" for="terms">
+    <input id="terms" name="terms" type="checkbox" required />
+    <span>I agree to the terms</span>
+  </label>
+</div>
+
+            <button class="btn" type="submit">Create account</button>
+          </form>
+          <div class="foot-note">Already registered? <a href="login.html">Login</a></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

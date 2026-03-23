@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LearnBuddy AI | Language Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg-1:#07111c;
+  --bg-2:#0c1c2d;
+  --panel:rgba(8,20,33,0.84);
+  --panel-strong:rgba(7,16,27,0.92);
+  --panel-soft:rgba(255,255,255,0.05);
+  --line:rgba(150,205,255,0.16);
+  --line-strong:rgba(106,227,255,0.28);
+  --text:#ecf7ff;
+  --muted:#90aabd;
+  --muted-strong:#b5d6ea;
+  --accent:#6ae3ff;
+  --accent-2:#8ff2b7;
+  --accent-3:#ffd36e;
+  --shadow:0 34px 90px rgba(0,0,0,0.42);
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:18px;
+  --max-width:1380px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  height:100%;
+  min-height:100%;
+  margin:0;
+  overflow-x:hidden;
+}
+
+body{
+  font-family:"Manrope",system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 18% 16%, rgba(106,227,255,0.18), transparent 28%),
+    radial-gradient(circle at 82% 12%, rgba(143,242,183,0.14), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(255,211,110,0.12), transparent 32%),
+    linear-gradient(140deg, var(--bg-1) 0%, var(--bg-2) 45%, #08121f 100%);
+  overflow:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.02)),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size:auto, 38px 38px, 38px 38px;
+  opacity:0.34;
+  pointer-events:none;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:28px;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:34px;
+  opacity:0.4;
+  pointer-events:none;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+.app{
+  min-height:100vh;
+  padding:20px;
+}
+
+.app-shell{
+  width:min(100%, var(--max-width));
+  height:calc(100vh - 40px);
+  min-height:calc(100vh - 40px);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(320px, 390px) minmax(0, 1fr);
+  gap:22px;
+}
+
+.hero-panel,
+.workspace{
+  position:relative;
+  overflow:hidden;
+  min-height:0;
+  border:1px solid var(--line);
+  border-radius:var(--radius-xl);
+  background:linear-gradient(180deg, rgba(10,25,40,0.92), rgba(6,13,22,0.92));
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+}
+
+.hero-panel::before,
+.workspace::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,0.08), transparent 22%, transparent);
+  pointer-events:none;
+}
+
+.hero-panel::after{
+  content:"";
+  position:absolute;
+  top:-120px;
+  right:-100px;
+  width:320px;
+  height:320px;
+  background:radial-gradient(circle, rgba(106,227,255,0.28), transparent 66%);
+  filter:blur(22px);
+  pointer-events:none;
+}
+
+.workspace::after{
+  content:"";
+  position:absolute;
+  right:-100px;
+  bottom:-90px;
+  width:280px;
+  height:280px;
+  background:radial-gradient(circle, rgba(255,211,110,0.18), transparent 68%);
+  filter:blur(28px);
+  pointer-events:none;
+}
+
+.hero-panel{
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  overflow:auto;
+}
+
+.brand-row{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  position:relative;
+  z-index:1;
+}
+
+.logo{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:1.08rem;
+  font-weight:700;
+  color:#052335;
+  background:linear-gradient(135deg, #6ae3ff, #7fb9ff 55%, #8ff2b7);
+  box-shadow:0 18px 36px rgba(106,227,255,0.28);
+}
+
+.eyebrow{
+  margin:0 0 4px;
+  font-size:0.76rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.brand-name{
+  margin:0;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:1.46rem;
+}
+
+.brand-copy{
+  margin:6px 0 0;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:0.95rem;
+}
+
+.auth-nav{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:auto;
+  position:relative;
+  z-index:1;
+}
+
+.auth-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:96px;
+  padding:12px 16px;
+  border-radius:16px;
+  text-decoration:none;
+  font-weight:700;
+  transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.auth-link:hover{
+  transform:translateY(-2px);
+}
+
+.auth-link-secondary{
+  color:var(--text);
+  border:1px solid rgba(150,205,255,0.14);
+  background:rgba(255,255,255,0.04);
+}
+
+.auth-link-primary{
+  color:#052234;
+  border:1px solid transparent;
+  background:linear-gradient(135deg, #6ae3ff, #8ff2b7 55%, #ffd36e);
+  box-shadow:0 18px 32px rgba(106,227,255,0.18);
+}
+
+.hero-copy{
+  position:relative;
+  z-index:1;
+  display:grid;
+  gap:14px;
+}
+
+.hero-pill{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);
+  color:var(--muted-strong);
+  font-size:0.8rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+.hero-copy h1{
+  margin:0;
+  max-width:12ch;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:clamp(2.25rem, 4vw, 3.5rem);
+  line-height:0.96;
+  letter-spacing:-0.04em;
+}
+
+.hero-copy p{
+  margin:0;
+  max-width:30rem;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:1rem;
+}
+
+.metric-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:12px;
+}
+
+.metric-card{
+  position:relative;
+  overflow:hidden;
+  min-height:120px;
+  padding:16px;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:var(--radius-md);
+  background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+}
+
+.metric-card::after{
+  content:"";
+  position:absolute;
+  right:-10px;
+  bottom:-28px;
+  width:110px;
+  height:110px;
+  background:radial-gradient(circle, rgba(106,227,255,0.18), transparent 70%);
+  pointer-events:none;
+}
+
+.metric-label{
+  font-size:0.72rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.metric-value{
+  margin-top:10px;
+  font-size:1.08rem;
+  font-weight:700;
+  line-height:1.35;
+}
+
+.metric-copy{
+  margin:8px 0 0;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:0.9rem;
+}
+
+.prompt-lab{
+  display:grid;
+  gap:12px;
+}
+
+.section-label{
+  font-size:0.76rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.shortcut-grid{
+  display:grid;
+  gap:12px;
+}
+
+.shortcut{
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+  padding:16px;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:var(--radius-md);
+  background:linear-gradient(180deg, rgba(10,24,39,0.95), rgba(5,14,24,0.92));
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+  transition:transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.shortcut::after{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:4px;
+  background:linear-gradient(180deg, #6ae3ff, #8ff2b7, #ffd36e);
+  opacity:0.9;
+}
+
+.shortcut:hover{
+  transform:translateY(-2px);
+  border-color:var(--line-strong);
+  box-shadow:0 16px 34px rgba(0,0,0,0.24);
+}
+
+.shortcut-tag{
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--accent-2);
+}
+
+.shortcut-title{
+  font-weight:700;
+  font-size:1rem;
+}
+
+.shortcut-copy{
+  color:var(--muted);
+  line-height:1.55;
+  font-size:0.9rem;
+}
+
+.hero-footer{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 20px;
+  border:1px solid rgba(143,242,183,0.16);
+  border-radius:20px;
+  background:linear-gradient(90deg, rgba(106,227,255,0.12), rgba(143,242,183,0.08));
+}
+
+.pulse-dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background:var(--accent-2);
+  box-shadow:0 0 0 0 rgba(143,242,183,0.42);
+  animation:pulse 2.4s infinite;
+}
+
+.hero-footer p{
+  margin:0;
+  color:var(--muted-strong);
+  line-height:1.6;
+  font-size:0.94rem;
+}
+
+.workspace{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+
+.workspace-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:4px 2px 20px;
+}
+
+.workspace-header > *{
+  min-width:0;
+}
+
+.workspace-sub,
+.signal-stack,
+.stage-toolbar,
+.chat,
+.messages,
+.msg,
+.composer-input{
+  min-width:0;
+}
+
+.workspace-kicker{
+  margin:0 0 12px;
+  font-size:0.75rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.workspace-title-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.workspace-title-row h2{
+  margin:0;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:clamp(1.65rem, 2.7vw, 2.5rem);
+  letter-spacing:-0.04em;
+}
+
+.live-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(143,242,183,0.2);
+  background:rgba(143,242,183,0.08);
+  color:#dffbea;
+  font-size:0.82rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:var(--accent-2);
+  box-shadow:0 0 0 0 rgba(143,242,183,0.42);
+  animation:pulse 2.2s infinite;
+}
+
+.workspace-sub{
+  max-width:700px;
+  margin:12px 0 0;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.signal-stack{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:12px;
+  min-width:min(100%, 390px);
+}
+
+.signal-card{
+  padding:14px 16px;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+}
+
+.signal-card span{
+  display:block;
+  font-size:0.72rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.signal-card strong{
+  display:block;
+  margin-top:8px;
+  line-height:1.4;
+  font-size:0.95rem;
+}
+
+.stage-frame{
+  position:relative;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:26px;
+  background:linear-gradient(180deg, rgba(8,18,31,0.88), rgba(4,10,18,0.94));
+}
+
+.stage-frame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,0.05), transparent 18%);
+  pointer-events:none;
+}
+
+.stage-toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(150,205,255,0.12);
+}
+
+.stage-chip{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border:1px solid rgba(150,205,255,0.12);
+  border-radius:999px;
+  background:rgba(255,255,255,0.04);
+  color:var(--muted-strong);
+  font-size:0.78rem;
+}
+
+.stage-chip.subtle{
+  color:var(--muted);
+}
+
+.chat{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.messages{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  scroll-behavior:smooth;
+}
+
+.messages::-webkit-scrollbar{
+  width:10px;
+}
+
+.messages::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.02);
+}
+
+.messages::-webkit-scrollbar-thumb{
+  border:2px solid transparent;
+  border-radius:999px;
+  background:rgba(150,205,255,0.18);
+  background-clip:padding-box;
+}
+
+.welcome-panel{
+  padding:22px;
+  border:1px solid rgba(106,227,255,0.18);
+  border-radius:22px;
+  background:linear-gradient(135deg, rgba(106,227,255,0.12), rgba(255,255,255,0.03) 46%, rgba(143,242,183,0.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);
+  animation:revealUp 0.45s ease both;
+}
+
+.welcome-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(106,227,255,0.16);
+  background:rgba(7,18,31,0.4);
+  color:var(--muted-strong);
+  font-size:0.76rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+
+.welcome-panel h3{
+  margin:14px 0 8px;
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:1.48rem;
+  line-height:1.15;
+}
+
+.welcome-panel p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.welcome-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+
+.mini-preset{
+  padding:10px 14px;
+  border:1px solid rgba(150,205,255,0.14);
+  border-radius:999px;
+  background:rgba(7,18,31,0.56);
+  color:var(--text);
+  cursor:pointer;
+  transition:transform 0.2s ease, border-color 0.2s ease;
+}
+
+.mini-preset:hover{
+  transform:translateY(-2px);
+  border-color:var(--line-strong);
+}
+
+.msg{
+  position:relative;
+  max-width:min(78%, 700px);
+  padding:18px 18px 16px;
+  border:1px solid rgba(150,205,255,0.1);
+  border-radius:22px;
+  box-shadow:0 18px 34px rgba(0,0,0,0.22);
+  backdrop-filter:blur(10px);
+  animation:bubbleIn 0.35s ease both;
+}
+
+.msg::before{
+  content:attr(data-label);
+  display:block;
+  margin-bottom:10px;
+  font-size:0.72rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+
+.msg.user{
+  align-self:flex-end;
+  margin-left:auto;
+  border-color:rgba(106,227,255,0.18);
+  background:linear-gradient(135deg, rgba(15,78,103,0.96), rgba(12,127,117,0.9));
+  color:#f0feff;
+}
+
+.msg.user::before{
+  color:rgba(231,250,255,0.78);
+}
+
+.msg.bot{
+  align-self:flex-start;
+  background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+}
+
+.msg-body{
+  overflow-wrap:anywhere;
+  line-height:1.75;
+}
+
+.msg-body > :first-child{
+  margin-top:0;
+}
+
+.msg-body > :last-child{
+  margin-bottom:0;
+}
+
+.msg.bot h1,
+.msg.bot h2,
+.msg.bot h3,
+.msg.bot h4{
+  margin:0 0 10px;
+  color:#e9f6ff;
+  line-height:1.25;
+}
+
+.msg.bot p,
+.msg.bot ul,
+.msg.bot ol,
+.msg.bot pre,
+.msg.bot blockquote{
+  margin:0 0 12px;
+}
+
+.msg.bot ul,
+.msg.bot ol{
+  padding-left:22px;
+}
+
+.msg.bot li{
+  margin-bottom:6px;
+}
+
+.msg.bot strong{
+  color:#ffffff;
+}
+
+.msg.bot code{
+  padding:2px 6px;
+  border-radius:8px;
+  background:rgba(106,227,255,0.12);
+  color:#b7f4ff;
+}
+
+.msg.bot pre{
+  padding:14px;
+  overflow:auto;
+  border:1px solid rgba(106,227,255,0.12);
+  border-radius:16px;
+  background:rgba(2,10,17,0.72);
+}
+
+.msg.bot pre code{
+  padding:0;
+  background:transparent;
+}
+
+.msg.user .msg-body{
+  white-space:pre-wrap;
+}
+
+.msg-meta{
+  margin-top:12px;
+  color:rgba(211,230,244,0.58);
+  font-size:0.76rem;
+}
+
+.typing-shell{
+  max-width:140px;
+}
+
+.typing{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.typing .dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:rgba(236,247,255,0.78);
+  animation:blink 1s infinite;
+}
+
+.typing .dot:nth-child(2){
+  animation-delay:0.16s;
+}
+
+.typing .dot:nth-child(3){
+  animation-delay:0.32s;
+}
+
+#composer{
+  display:flex;
+  align-items:flex-end;
+  gap:14px;
+  padding:18px;
+  border-top:1px solid rgba(150,205,255,0.12);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
+}
+
+.composer-input{
+  flex:1;
+  min-width:0;
+  overflow:hidden;
+  padding:14px 16px;
+  border:1px solid rgba(150,205,255,0.14);
+  border-radius:20px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+#inputBox{
+  display:block;
+  width:100%;
+  min-height:30px;
+  max-height:180px;
+  resize:none;
+  overflow-y:auto;
+  overflow-x:hidden;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  line-height:1.6;
+  font-size:1rem;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+#inputBox::placeholder{
+  color:rgba(184,205,221,0.62);
+}
+
+.composer-note{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:0.78rem;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-shrink:0;
+}
+
+.btn{
+  padding:14px 18px;
+  border:1px solid transparent;
+  border-radius:18px;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  color:#052234;
+  background:linear-gradient(135deg, #6ae3ff, #8ff2b7 55%, #ffd36e);
+  box-shadow:0 18px 32px rgba(106,227,255,0.22);
+}
+
+.btn-secondary{
+  color:var(--text);
+  border-color:rgba(150,205,255,0.14);
+  background:rgba(255,255,255,0.04);
+}
+
+.btn:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+  transform:none;
+}
+
+@keyframes bubbleIn{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(0.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes revealUp{
+  from{
+    opacity:0;
+    transform:translateY(16px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes blink{
+  0%{
+    opacity:0.28;
+    transform:translateY(0);
+  }
+  50%{
+    opacity:1;
+    transform:translateY(-3px);
+  }
+  100%{
+    opacity:0.28;
+    transform:translateY(0);
+  }
+}
+
+@keyframes pulse{
+  0%{
+    box-shadow:0 0 0 0 rgba(143,242,183,0.4);
+  }
+  70%{
+    box-shadow:0 0 0 14px rgba(143,242,183,0);
+  }
+  100%{
+    box-shadow:0 0 0 0 rgba(143,242,183,0);
+  }
+}
+
+@media (max-width:1180px){
+  .app{
+    padding:18px;
+  }
+
+  .app-shell{
+    height:auto;
+    min-height:auto;
+    grid-template-columns:1fr;
+  }
+
+  .hero-panel{
+    overflow:visible;
+  }
+
+  .workspace{
+    min-height:72vh;
+  }
+
+  .hero-copy h1{
+    max-width:18ch;
+  }
+}
+
+@media (max-width:920px){
+  .workspace-header{
+    flex-direction:column;
+  }
+
+  .signal-stack{
+    width:100%;
+    min-width:0;
+  }
+
+  .msg{
+    max-width:92%;
+  }
+}
+
+@media (max-width:720px){
+  body{
+    overflow:auto;
+  }
+
+  body::after{
+    display:none;
+  }
+
+  .app{
+    padding:12px;
+  }
+
+  .hero-panel,
+  .workspace{
+    padding:18px;
+  }
+
+  .hero-panel{
+    gap:20px;
+  }
+
+  .brand-row{
+    flex-wrap:wrap;
+  }
+
+  .auth-nav{
+    width:100%;
+    margin-left:0;
+  }
+
+  .auth-link{
+    flex:1;
+  }
+
+  .metric-grid,
+  .signal-stack{
+    grid-template-columns:1fr;
+  }
+
+  .messages{
+    padding:16px;
+  }
+
+  .welcome-actions{
+    flex-direction:column;
+  }
+
+  .mini-preset{
+    width:100%;
+    text-align:center;
+  }
+
+  #composer{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .actions{
+    width:100%;
+  }
+
+  .btn{
+    flex:1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+<div class="app" role="application" aria-label="LearnBuddy AI app">
+  <div class="app-shell">
+    <aside class="hero-panel" aria-label="Language AI overview">
+      <div class="brand-row">
+        <div class="logo">LB</div>
+        <div>
+          <p class="eyebrow">Language AI Studio</p>
+          <h1 class="brand-name">LearnBuddy AI</h1>
+          <p class="brand-copy">A sharper, more premium chat surface for tutoring, corrections, and natural speaking practice.</p>
+        </div>
+
+      <div class="auth-nav">
+        <a class="auth-link auth-link-secondary" href="login.html">Login</a>
+        <a class="auth-link auth-link-primary" href="signup.html">Sign up</a>
+      </div>
+
+      </div>
+
+      <section class="hero-copy">
+        <div class="hero-pill">Live tutoring interface</div>
+        <h1>Speak smoother. Write sharper. Learn faster.</h1>
+        <p>Built for grammar fixes, natural phrasing, vocabulary building, and role-play prompts with a more polished AI-first look.</p>
+      </section>
+
+      <section class="metric-grid" aria-label="Highlights">
+        <article class="metric-card">
+          <div class="metric-label">Correction Loop</div>
+          <div class="metric-value">Clean grammar feedback in real time</div>
+          <p class="metric-copy">Spot mistakes, rewrite sentences, and learn why the better version sounds natural.</p>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Dialogue Mode</div>
+          <div class="metric-value">Role-play practice that feels more alive</div>
+          <p class="metric-copy">Use guided prompts for interviews, travel, casual conversations, or quick speaking drills.</p>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">Vocabulary Build</div>
+          <div class="metric-value">Topic-focused words with examples</div>
+          <p class="metric-copy">Generate compact vocab packs for school, work, travel, or everyday small talk.</p>
+        </article>
+        <article class="metric-card">
+          <div class="metric-label">AI Tone</div>
+          <div class="metric-value">A more premium, studio-like interface</div>
+          <p class="metric-copy">Layered gradients, glowing accents, and cleaner spacing give the app a stronger AI identity.</p>
+        </article>
+      </section>
+
+      <section class="prompt-lab" aria-label="Quick prompts">
+        <div class="section-label">Quick Launch</div>
+        <div class="shortcut-grid">
+          <button class="shortcut" type="button" onclick="preset('Practice small talk in English with short back-and-forth replies')">
+            <span class="shortcut-tag">Talk</span>
+            <span class="shortcut-title">Small talk warmup</span>
+            <span class="shortcut-copy">Start an easy conversation and keep the responses natural and short.</span>
+          </button>
+          <button class="shortcut" type="button" onclick="preset('Correct my sentence and explain the mistake: I goed to the store yesterday')">
+            <span class="shortcut-tag">Fix</span>
+            <span class="shortcut-title">Sentence correction</span>
+            <span class="shortcut-copy">Get a corrected version plus a short explanation of what changed.</span>
+          </button>
+          <button class="shortcut" type="button" onclick="preset('Give me 7 vocabulary words for traveling with example sentences')">
+            <span class="shortcut-tag">Vocab</span>
+            <span class="shortcut-title">Travel vocabulary pack</span>
+            <span class="shortcut-copy">Generate practical words with examples you can actually use right away.</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="hero-footer">
+        <div class="pulse-dot" aria-hidden="true"></div>
+        <p>Interface tuned to feel more like a modern AI workspace while keeping the original chat flow simple.</p>
+      </div>
+    </aside>
+
+    <main class="workspace" role="main" aria-label="Chat workspace">
+      <header class="workspace-header">
+        <div>
+          <p class="workspace-kicker">Conversation Cockpit</p>
+          <div class="workspace-title-row">
+            <h2>English Tutor Session</h2>
+            <div class="live-pill">
+              <span class="live-dot" aria-hidden="true"></span>
+              Realtime
+            </div>
+          </div>
+          <p class="workspace-sub">Corrections, mini lessons, practice prompts, and cleaner AI responses all inside one focused workspace.</p>
+        </div>
+
+        <div class="signal-stack" aria-label="Session status">
+          <div class="signal-card">
+            <span>Mode</span>
+            <strong>Tutor</strong>
+          </div>
+          <div class="signal-card">
+            <span>Focus</span>
+            <strong>Grammar and fluency</strong>
+          </div>
+          <div class="signal-card">
+            <span>Output</span>
+            <strong>Markdown-ready replies</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="stage-frame">
+        <div class="stage-toolbar" aria-label="Chat hints">
+          <div class="stage-chip">Enter sends</div>
+          <div class="stage-chip">Shift + Enter adds a line</div>
+          <div class="stage-chip subtle">Use quick prompts on the left to start faster</div>
+        </div>
+
+        <div class="chat" role="log" aria-live="polite">
+          <div class="messages" id="messages" aria-label="Messages"></div>
+
+          <div id="composer" aria-label="Message composer">
+            <div class="composer-input">
+              <textarea id="inputBox" rows="1" placeholder="Ask me to correct a sentence, build vocabulary, or coach a dialogue..."></textarea>
+              <div class="composer-note">Enter to send. Shift + Enter for a new line.</div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-secondary" id="newChatBtn" type="button" title="New Chat">New chat</button>
+              <button class="btn btn-primary" id="sendBtn" type="button" title="Send">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+const inputBox = document.getElementById("inputBox");
+const sendBtn = document.getElementById("sendBtn");
+const newChatBtn = document.getElementById("newChatBtn");
+const messages = document.getElementById("messages");
+
+const welcomeMessage = [
+  "Welcome to LearnBuddy AI.",
+  "",
+  "I can help you with:",
+  "- grammar corrections",
+  "- more natural phrasing",
+  "- vocabulary building",
+  "- short dialogue practice",
+  "",
+  "Try a prompt like: `Correct my sentence: I am go to market yesterday.`"
+].join("\n");
+
+if (window.marked) {
+  marked.setOptions({
+    breaks: true,
+    gfm: true
+  });
+}
+
+sendBtn.addEventListener("click", handleSend);
+inputBox.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    handleSend();
+  }
+});
+inputBox.addEventListener("input", autoResize);
+
+newChatBtn.addEventListener("click", () => {
+  if (!confirm("Start a new chat? This will clear the conversation.")) return;
+  renderWelcomeState();
+  inputBox.focus();
+});
+
+let typingEl = null;
+let isSending = false;
+
+function autoResize() {
+  inputBox.style.height = "0px";
+  inputBox.style.height = Math.min(inputBox.scrollHeight, 180) + "px";
+}
+
+function preset(text) {
+  inputBox.value = text;
+  autoResize();
+  inputBox.focus();
+}
+
+function renderWelcomeState() {
+  messages.innerHTML = "";
+
+  const panel = document.createElement("section");
+  panel.className = "welcome-panel";
+  panel.innerHTML = `
+    <div class="welcome-badge">Adaptive language guidance</div>
+    <h3>Pick a starting point and let the AI drive the lesson flow.</h3>
+    <p>Use a quick prompt below or type anything you want to practise. The UI is now designed to feel more like a premium AI language studio.</p>
+    <div class="welcome-actions">
+      <button class="mini-preset" type="button" onclick="preset('Help me sound more natural in English')">Natural English</button>
+      <button class="mini-preset" type="button" onclick="preset('Quiz me with 5 beginner English questions')">Mini quiz</button>
+      <button class="mini-preset" type="button" onclick="preset('Role-play a job interview in English')">Role-play</button>
+    </div>
+  `;
+
+  messages.appendChild(panel);
+  appendBot(welcomeMessage);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function appendBot(text) {
+  appendMessage(text, "bot");
+}
+
+function appendUser(text) {
+  appendMessage(text, "user");
+}
+
+function appendMessage(text, who) {
+  const message = document.createElement("article");
+  message.className = "msg " + (who === "user" ? "user" : "bot");
+  message.setAttribute("data-label", who === "user" ? "You" : "LearnBuddy AI");
+
+  const body = document.createElement("div");
+  body.className = "msg-body";
+
+  if (who === "bot" && window.marked) {
+    body.innerHTML = marked.parse(text);
+  } else {
+    body.textContent = text;
+  }
+
+  const meta = document.createElement("div");
+  meta.className = "msg-meta";
+  meta.textContent = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  message.appendChild(body);
+  message.appendChild(meta);
+  messages.appendChild(message);
+  messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+}
+
+function showTyping() {
+  if (typingEl) return;
+
+  typingEl = document.createElement("article");
+  typingEl.className = "msg bot typing-shell";
+  typingEl.setAttribute("data-label", "LearnBuddy AI");
+
+  const typing = document.createElement("div");
+  typing.className = "typing";
+  typing.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+
+  typingEl.appendChild(typing);
+  messages.appendChild(typingEl);
+  messages.scrollTo({ top: messages.scrollHeight, behavior: "smooth" });
+}
+
+function hideTyping() {
+  if (!typingEl) return;
+  messages.removeChild(typingEl);
+  typingEl = null;
+}
+
+async function handleSend() {
+  const text = inputBox.value.trim();
+  if (!text || isSending) return;
+
+  isSending = true;
+  sendBtn.disabled = true;
+  appendUser(text);
+  inputBox.value = "";
+  autoResize();
+  showTyping();
+
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+
+    let data = {};
+
+    try {
+      data = await res.json();
+    } catch (parseError) {
+      data = {};
+    }
+
+    if (!res.ok) {
+      throw new Error(data.reply || "Request failed");
+    }
+
+    appendBot(data.reply || "No response from the server.");
+  } catch (error) {
+    console.error(error);
+    appendBot("Error: could not reach the server. Check the API key and backend connection.");
+  } finally {
+    hideTyping();
+    sendBtn.disabled = false;
+    isSending = false;
+    inputBox.focus();
+  }
+}
+
+renderWelcomeState();
+autoResize();
+</script>
+</body>
+</html>
